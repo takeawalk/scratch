@@ -23,4 +23,23 @@ const insertGoalsQuery = ({ userID, goalID, value }) => `insert into weeklygoals
 
 model.insertGoalPromise = goalObj => db.query(insertGoalsQuery(goalObj));
 
+const findPotentialPartnerQuery = partnerName => `select user_id from users where name = '${partnerName}';`;
+
+model.findPotentialPartnerPromise = partnerName => db.one(findPotentialPartnerQuery(partnerName));
+
+const setPartnerQuery = ({ userID, partnerID }) => `update users set accfor = ${partnerID} where user_id = ${userID};`;
+
+model.setPartnerPromise = request => db.query(setPartnerQuery(request));
+
+const insertProgressQuery = progressObj => (
+  `INSERT INTO progress (user_ID, goal_id, value) 
+  VALUES 
+  (${progressObj.userID}, 1, ${progressObj[1]}),
+  (${progressObj.userID}, 2, ${progressObj[2]}),
+  (${progressObj.userID}, 3, ${progressObj[3]}),
+  (${progressObj.userID}, 4, ${progressObj[4]});`
+);
+
+model.insertProgressPromise = progressObj => db.query(insertProgressQuery(progressObj));
+
 module.exports = model;
