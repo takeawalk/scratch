@@ -20,5 +20,8 @@ app.post('/newUser', dbContoller.newUser, (req, res) => res.send());
 
 app.post('/insertGoals', dbContoller.insertGoals, (req, res) => res.send());
 
+app.post('/insertProgress', dbContoller.insertProgress, (req, res) => res.send());
+
+app.patch('/addPartner', dbContoller.addPartner, (req, res) => res.send());
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}...`));

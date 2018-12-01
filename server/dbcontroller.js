@@ -5,6 +5,9 @@ const {
   daysPromise,
   insertGoalPromise,
   insertNewUserPromise,
+  findPotentialPartnerPromise,
+  setPartnerPromise,
+  insertProgressPromise,
 } = require('./model');
 
 const dbController = {};
@@ -14,7 +17,6 @@ dbController.findUsers = async (req, res, next) => {
   res.locals.users = users;
   next();
 };
-
 
 dbController.newUser = (req, res, next) => {
   // input the new user in the users table
@@ -44,6 +46,30 @@ dbController.insertGoals = (req, res, next) => {
     .then(() => {
       next();
     })
+    .catch(err => res.send(err));
+};
+
+dbController.insertProgress = (req, res, next) => {
+  const progress = req.body;
+  console.log('progress: ', progress);
+  insertProgressPromise(progress)
+    .then(() => {
+      next();
+    })
+    .catch(err => res.send(err));
+};
+
+dbController.addPartner = (req, res, next) => {
+  const { userID, partnerName } = req.body;
+  const reqBody = {};
+  findPotentialPartnerPromise(partnerName)
+    .then((partnerIDObj) => {
+      reqBody.partnerID = partnerIDObj.user_id;
+      reqBody.userID = userID;
+      return reqBody;
+    })
+    .then((request) => { setPartnerPromise(request); })
+    .then(() => { next(); })
     .catch(err => res.send(err));
 };
 
