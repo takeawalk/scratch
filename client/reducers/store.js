@@ -1,7 +1,11 @@
 import { combineReducers, createStore } from 'redux';
-import goalReducer from './goalReducer';
+import { signupReducer, loginReducer } from './signupReducer';
 
-const combinedReducers = combineReducers({ goalReducer });
+const combinedReducers = combineReducers({
+  signupReducer: signupReducer,
+  loginReducer: loginReducer,
+});
+
 const store = createStore(combinedReducers);
 
 export default store;
