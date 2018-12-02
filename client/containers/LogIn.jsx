@@ -8,9 +8,8 @@ const LogIn = (props) => {
   return (
     <div>
       <form onSubmit={handleLoginSubmit}>
+      <h1>Login</h1>
         <p>UserID: </p>
-        <input type="text" onChange={handleChange} value={currentText} />
-        <p>Phone Number: </p>
         <input type="text" onChange={handleChange} value={currentText} />
         <p>Password: </p>
         <input type="text" onChange={handleChange} value={currentText} />
@@ -20,4 +19,18 @@ const LogIn = (props) => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => {
+  return {
+    userID: state.userID,
+    password: state.password,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    handleChange,
+    handleLoginSubmit
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

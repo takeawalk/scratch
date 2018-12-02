@@ -1,4 +1,4 @@
-import types from '../constants/actionNames';
+import * as types from '../constants/actionNames';
 
 const initialState = {
   userID: '',
@@ -16,7 +16,7 @@ const signupReducer = (state = initialState, action) => {
       }
     }
 
-    case HANDLE_SIGNUP_SUBMIT: {
+    case types.HANDLE_SIGNUP_SUBMIT: {
       fetch('http://localhost:3000/newUser', { // TODO: update to correct route
         method: 'POST',
         headers: {
@@ -30,7 +30,9 @@ const signupReducer = (state = initialState, action) => {
       })
         .then((data) => {
           return data.json();
+
         })
+      // console.log('hiii');
     }
     default:
       return state;

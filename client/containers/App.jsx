@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Login from './LogIn';
-import SigUp from './SignUp';
+import LogIn from './LogIn';
+import SignUp from './SignUp';
 
 const mapStateToProps = () => ({
 
@@ -16,8 +16,6 @@ const App = props => (
     <div className="container">
       <SignUp />
       <LogIn />
-      <Route path="/add" component={} />
-      <Route path="/view" component={} />
     </div>
   </BrowserRouter>
 );

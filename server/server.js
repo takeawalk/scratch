@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 
-app.use(express.static(path.resolve(__dirname, '../dist/')));
+// app.use(express.static(path.resolve(__dirname, '../dist/')));
 
 
 app.get('/userdata', dbContoller.getUserState, (req, res) => {

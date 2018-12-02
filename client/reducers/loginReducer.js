@@ -1,4 +1,4 @@
-import types from '../constants/actionNames';
+import * as types from '../constants/actionNames';
 const axios = require('axios');
 
 const initialState = {
@@ -16,7 +16,7 @@ const loginReducer = (state = initialState, action) => {
       }
     }
 
-    case HANDLE_LOGIN_SUBMIT: {
+    case types.HANDLE_LOGIN_SUBMIT: {
       // query db and find out if they are a user
       axios.request({
         method: 'get',
