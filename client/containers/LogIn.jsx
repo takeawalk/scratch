@@ -9,7 +9,7 @@ const LogIn = (props) => {
     <div>
       <form onSubmit={handleLoginSubmit}>
       <h1>Login</h1>
-        <p>UserID: </p>
+        <p>Name: </p>
         <input type="text" onChange={handleChange} value={currentText} />
         <p>Password: </p>
         <input type="text" onChange={handleChange} value={currentText} />
@@ -21,7 +21,7 @@ const LogIn = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userID: state.userID,
+    name: state.name,
     password: state.password,
   }
 }

@@ -2,7 +2,7 @@ import * as types from '../constants/actionNames';
 const axios = require('axios');
 
 const initialState = {
-  userID: '',
+  name: '',
   password: '',
 };
 
@@ -10,7 +10,7 @@ const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.HANDLE_CHANGE: {
       return {
-        userID: action.payload,
+        name: action.payload,
         phone: action.payload,
         password: action.payload,
       }
@@ -22,7 +22,7 @@ const loginReducer = (state = initialState, action) => {
         method: 'get',
         url: 'http://localhost:3000/userdata',
         data: {
-          userID: '1',
+          name: '1',
         }
       })
         .then((data) => {
@@ -33,8 +33,8 @@ const loginReducer = (state = initialState, action) => {
       // otherwise, redirect to signup page and notify "you are not signed up", along w error
 
       return {
-        userID: state.userID,
-        password: state.userID,
+        name: state.name,
+        password: state.name,
       }
     }
     default:

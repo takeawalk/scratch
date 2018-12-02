@@ -4,17 +4,17 @@ import { bindActionCreators } from 'redux';
 import { handleSignupSubmit, handleChange } from '../actions/actions';
 
 const SignUp = (props) => {
-  const { handleSignupSubmit, currentText } = props;
+  const { handleSignupSubmit, name, phone, password, handleChange } = props;
   return (
     <div>
       <form onSubmit={handleSignupSubmit}>
         <h1>Sign Up</h1>
-        <p>UserID: </p>
-        <input type="text" onChange={handleChange} value={currentText} />
+        <p>Name: </p>
+        <input type="text" onChange={(e) => handleChange(e, 'name')} value={name} />
         <p>Phone Number: </p>
-        <input type="text" onChange={handleChange} value={currentText} />
+        <input type="text" onChange={(e) => handleChange(e, 'phone')} value={phone} />
         <p>Password: </p>
-        <input type="text" onChange={handleChange} value={currentText} />
+        <input type="text" onChange={(e) => handleChange(e, 'password')} value={password} />
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -23,7 +23,7 @@ const SignUp = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userID: state.userID,
+    name: state.name,
     phone: state.phone,
     password: state.password,
   }
