@@ -12,20 +12,15 @@ const {
 
 const dbController = {};
 
-dbController.findUsers = async (req, res, next) => {
-  const users = await db.query('select * from users;');
-  res.locals.users = users;
-  next();
-};
-
+// inputs the new user that signs up
 dbController.newUser = (req, res, next) => {
-  // input the new user in the users table
   const user = req.body;
   insertNewUserPromise(user)
     .then(() => next())
     .catch(err => res.send(err));
 };
 
+// get the entire state of requested user
 dbController.getUserState = (req, res, next) => {
   const { userID } = req.body;
   Promise.all([nameGoalsAPPromise(userID), daysPromise(userID)])
@@ -39,6 +34,7 @@ dbController.getUserState = (req, res, next) => {
     .catch(err => res.send(err));
 };
 
+// insert weekly goals
 dbController.insertGoals = (req, res, next) => {
   const goals = req.body;
   console.log('goals: ', goals);
@@ -49,6 +45,7 @@ dbController.insertGoals = (req, res, next) => {
     .catch(err => res.send(err));
 };
 
+// insert daily progress
 dbController.insertProgress = (req, res, next) => {
   const progress = req.body;
   console.log('progress: ', progress);
@@ -59,6 +56,7 @@ dbController.insertProgress = (req, res, next) => {
     .catch(err => res.send(err));
 };
 
+// add accountability partner
 dbController.addPartner = (req, res, next) => {
   const { userID, partnerName } = req.body;
   const reqBody = {};
@@ -75,6 +73,7 @@ dbController.addPartner = (req, res, next) => {
 
 module.exports = dbController;
 
+// two helper functions to build the full state
 const daysParser = (daysArr) => {
   const days = {};
   daysArr.forEach((dayObj) => {
