@@ -17,6 +17,7 @@ const dbController = {};
 
 // inputs the new user that signs up
 dbController.newUser = (req, res, next) => {
+  console.log('here');
   const user = req.body;
   const { password } = user;
   const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
