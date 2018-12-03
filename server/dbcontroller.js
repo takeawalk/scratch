@@ -15,6 +15,7 @@ const dbController = {};
 // inputs the new user that signs up
 dbController.newUser = (req, res, next) => {
   const user = req.body;
+  // console.log('user: ', user);
   insertNewUserPromise(user)
     .then(() => next())
     .catch(err => res.send(err));
@@ -22,8 +23,8 @@ dbController.newUser = (req, res, next) => {
 
 // get the entire state of requested user
 dbController.getUserState = (req, res, next) => {
-  const { userID } = req.body;
-  Promise.all([nameGoalsAPPromise(userID), daysPromise(userID)])
+  const { name } = req.body;
+  Promise.all([nameGoalsAPPromise(name), daysPromise(name)])
     .then((result) => {
       // console.log()
       const state = convertToState(result[0]);
@@ -91,7 +92,7 @@ const daysParser = (daysArr) => {
 function convertToState(array) {
   return array.reduce((accum, curr) => {
     accum.userName = curr.username;
-    accum.userID = curr.user_id;
+    accum.name = curr.user_id;
     if (!accum.hasOwnProperty('goals')) { accum.goals = {}; }
     accum.goals[curr.goal] = curr.value;
     if (!accum.partner) {
