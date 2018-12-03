@@ -1,4 +1,6 @@
 const pgp = require('pg-promise')();
+const SALT_WORK_FACTOR = 8;
+const bcrypt = require('bcryptjs');
 
 const {
   nameGoalsAPPromise,
@@ -21,6 +23,10 @@ dbController.findUsers = async (req, res, next) => {
 dbController.newUser = (req, res, next) => {
   // input the new user in the users table
   const user = req.body;
+  const { password } = user;
+  const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+  const hash = bcrypt.hashSync(password, salt);
+  user.password = hash;
   insertNewUserPromise(user)
     .then(() => next())
     .catch(err => res.send(err));
