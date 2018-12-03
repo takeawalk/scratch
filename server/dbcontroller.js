@@ -10,6 +10,7 @@ const {
   findPotentialPartnerPromise,
   setPartnerPromise,
   insertProgressPromise,
+  verifyUserPromise,
 } = require('./model');
 
 const dbController = {};
@@ -32,11 +33,23 @@ dbController.newUser = (req, res, next) => {
     .catch(err => res.send(err));
 };
 
+dbController.verifyUser = (req, res, next) => {
+  const { userName, password } = req.body;
+  verifyUserPromise(userName)
+    .then((passwordObj) => {
+      if (bcrypt.compareSync(password, passwordObj.password)) {
+        res.status(200).send('Login Successful')
+      } else {
+        throw new Error('Incorrect password');
+      }
+    })
+    .catch(err => res.send(err));
+};
+
 dbController.getUserState = (req, res, next) => {
   const { userID } = req.body;
   Promise.all([nameGoalsAPPromise(userID), daysPromise(userID)])
     .then((result) => {
-      // console.log()
       const state = convertToState(result[0]);
       state.days = daysParser(result[1]);
       res.locals.state = state;
@@ -47,7 +60,6 @@ dbController.getUserState = (req, res, next) => {
 
 dbController.insertGoals = (req, res, next) => {
   const goals = req.body;
-  console.log('goals: ', goals);
   insertGoalPromise(goals)
     .then(() => {
       next();
