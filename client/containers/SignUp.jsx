@@ -5,6 +5,9 @@ import { handleSignupSubmit, handleChange } from '../actions/actions';
 
 const SignUp = (props) => {
   const { handleSignupSubmit, name, phone, password, handleChange } = props;
+  const style = {
+    WebkitTextSecurity: 'disc'
+  }
   return (
     <div>
       <form onSubmit={handleSignupSubmit}>
@@ -14,7 +17,7 @@ const SignUp = (props) => {
         <p>Phone Number: </p>
         <input type="text" onChange={(e) => handleChange(e, 'phone')} value={phone} />
         <p>Password: </p>
-        <input type="text" onChange={(e) => handleChange(e, 'password')} value={password} />
+        <input type="text" style={style} onChange={(e) => handleChange(e, 'password')} value={password} />
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -23,9 +26,9 @@ const SignUp = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    name: state.name,
-    phone: state.phone,
-    password: state.password,
+    name: state.signup.name,
+    phone: state.signup.phone,
+    password: state.signup.password,
   }
 }
 

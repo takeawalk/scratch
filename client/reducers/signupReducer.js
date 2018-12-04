@@ -40,12 +40,10 @@ const signupReducer = (state = initialState, action) => {
         })
       })
         .then((data) => {
-          // console.log('data: ', data);
           return data.json();
         })
         .then(response => response)
         .catch(err => console.log(err))
-      // console.log('hiii');
       // return state;
     }
     default:
