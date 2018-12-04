@@ -8,8 +8,10 @@ const insertNewUserQuery = ({ name, password, phone }) => `insert into users (na
 
 model.insertNewUserPromise = request => db.query(insertNewUserQuery(request));
 
-// get the entire state of requested user
-// the first two is the query to find name, goals, and partner info
+const verifyUserQuery = userName => `select password from users where name = '${userName}';`;
+
+model.verifyUserPromise = userName => db.one(verifyUserQuery(userName));
+
 const nameGoalsPartnerQuery = userID => `select u.user_ID, u.name as userName, g.goal, wg.value, p.name as partnerName, p.user_id partnerID, p.phone partnerPhone
 from users u join weeklygoals wg on u.user_id = wg.user_id join goals g on wg.goal_id = g.goal_id join users p on u.accfor = p.user_id
 where u.user_id =${userID};`;

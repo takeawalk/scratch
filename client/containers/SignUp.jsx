@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { handleSignupSubmit, handleChange } from '../actions/actions';
 
+
 const SignUp = (props) => {
   const { handleSignupSubmit, name, phone, password, handleChange } = props;
   const style = {
@@ -10,7 +11,7 @@ const SignUp = (props) => {
   }
   return (
     <div>
-      <form onSubmit={handleSignupSubmit}>
+      <form onSubmit={e => handleSignupSubmit(e, name, phone, password)}>
         <h1>Sign Up</h1>
         <p>Name: </p>
         <input type="text" onChange={(e) => handleChange(e, 'name')} value={name} />
@@ -23,6 +24,7 @@ const SignUp = (props) => {
     </div>
   )
 }
+
 
 const mapStateToProps = (state) => {
   return {
@@ -38,7 +40,6 @@ const mapDispatchToProps = (dispatch) => {
     handleSignupSubmit
   }, dispatch)
 }
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

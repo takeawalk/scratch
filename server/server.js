@@ -22,6 +22,9 @@ app.get('/userdata', dbContoller.getUserState, (req, res) => {
   res.json(res.locals.state);
 });
 
+app.get('/login', dbContoller.verifyUser, (req, res) => res.send());
+
+app.post('/newUser', dbContoller.newUser, (req, res) => res.send());
 
 
 app.post('/newUser', dbContoller.newUser, (req, res) => res.status(200).send());

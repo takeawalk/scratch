@@ -27,24 +27,7 @@ const signupReducer = (state = initialState, action) => {
     }
 
     case types.HANDLE_SIGNUP_SUBMIT: {
-      // console.log(state);
-      fetch('http://localhost:3000/newUser', { // TODO: update to correct route
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        body: JSON.stringify({
-          name: state.name,
-          phone: state.phone,
-          password: state.password,
-        })
-      })
-        .then((data) => {
-          return data.json();
-        })
-        .then(response => response)
-        .catch(err => console.log(err))
-      // return state;
+      return state;
     }
     default:
       return state;

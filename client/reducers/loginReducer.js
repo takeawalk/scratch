@@ -11,6 +11,7 @@ const initialState = {
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
+
     case types.HANDLE_LOGIN_CHANGE: {
       if (action.tochange === 'nameL') {
         return {
@@ -23,18 +24,9 @@ const loginReducer = (state = initialState, action) => {
           password: action.payload
         }
       }
-      // return {
-      //   ...state,
-      //   password: action.payload,
-      // }
-      // return {
-      //   name: action.payload,
-      //   password: action.payload,
-      // }
     }
 
     case types.HANDLE_LOGIN_SUBMIT: {
-
       return {
         ...state,
         sleep: action.payload.sleep,

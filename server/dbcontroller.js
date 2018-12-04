@@ -10,12 +10,14 @@ const {
   findPotentialPartnerPromise,
   setPartnerPromise,
   insertProgressPromise,
+  verifyUserPromise,
 } = require('./model');
 
 const dbController = {};
 
 // inputs the new user that signs up
 dbController.newUser = (req, res, next) => {
+  console.log('here');
   const user = req.body;
   const { password } = user;
   const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
@@ -26,12 +28,23 @@ dbController.newUser = (req, res, next) => {
     .catch(err => res.send(err));
 };
 
-// get the entire state of requested user
+dbController.verifyUser = (req, res, next) => {
+  const { userName, password } = req.body;
+  verifyUserPromise(userName)
+    .then((passwordObj) => {
+      if (bcrypt.compareSync(password, passwordObj.password)) {
+        res.status(200).send('Login Successful')
+      } else {
+        throw new Error('Incorrect password');
+      }
+    })
+    .catch(err => res.send(err));
+};
+
 dbController.getUserState = (req, res, next) => {
   const { name } = req.body;
   Promise.all([nameGoalsAPPromise(name), daysPromise(name)])
     .then((result) => {
-      // console.log()
       const state = convertToState(result[0]);
       state.days = daysParser(result[1]);
       res.locals.state = state;
@@ -43,7 +56,6 @@ dbController.getUserState = (req, res, next) => {
 // insert weekly goals
 dbController.insertGoals = (req, res, next) => {
   const goals = req.body;
-  console.log('goals: ', goals);
   insertGoalPromise(goals)
     .then(() => {
       next();

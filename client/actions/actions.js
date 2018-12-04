@@ -13,8 +13,21 @@ export const handleLoginChange = (e, tochange) => ({
   payload: e.target.value,
 });
 
-export const handleSignupSubmit = (e) => {
+export const handleSignupSubmit = (e, name, phone, password) => {
+
   e.preventDefault();
+  fetch('http://localhost:3000/newUser', { // TODO: update to correct route
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+      name: name,
+      phone: phone,
+      password: password,
+    })
+  })
+    .catch(err => console.log(err));
   return {
     type: types.HANDLE_SIGNUP_SUBMIT,
     payload: e
@@ -22,8 +35,6 @@ export const handleSignupSubmit = (e) => {
 };
 
 export const handleLoginSubmit = (e) => {
-  console.log('hello');
-  // let userObj;
   e.preventDefault();
   axios.request({
     method: 'get',
@@ -75,4 +86,3 @@ export const handleLoginSubmit = (e) => {
 //     password: state.name,
 //   }
 // });
-
