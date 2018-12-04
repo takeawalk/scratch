@@ -4,27 +4,33 @@ const axios = require('axios');
 const initialState = {
   name: '',
   password: '',
+  sleep: null,
+  excercise: null,
+
 };
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.HANDLE_CHANGE: {
-      return {
-        ...state,
-        name: action.payload,
-        phone: action.payload,
-        password: action.payload,
+
+    case types.HANDLE_LOGIN_CHANGE: {
+      if (action.tochange === 'nameL') {
+        return {
+          ...state,
+          name: action.payload
+        }
+      } else if (action.tochange === 'password') {
+        return {
+          ...state,
+          password: action.payload
+        }
       }
     }
 
     case types.HANDLE_LOGIN_SUBMIT: {
-      // query db and find out if they are a user
-      // if so, redirect to goals progress dashboard
-      // otherwise, redirect to signup page and notify "you are not signed up", along w error
       return {
         ...state,
-        name: state.name,
-        password: state.name,
+        sleep: action.payload.sleep,
+        excercise: action.payload.exercise,
       }
     }
     default:

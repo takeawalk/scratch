@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Dashboard from './Dashboard';
-import Main from './Main';
 
 const mapStateToProps = () => ({
 
@@ -13,12 +12,13 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-const App = props => (
-  <BrowserRouter>
-    <div className="container">
-      <Main />
-    </div>
-  </BrowserRouter>
+const Main = props => (
+
+  <div>
+    <SignUp />
+    <LogIn />
+    <Dashboard />
+  </div>
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
